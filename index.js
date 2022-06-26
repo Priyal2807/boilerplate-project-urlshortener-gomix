@@ -33,15 +33,22 @@ app.post("/api/shorturl", (req, res) => {
             key++;
             res.send({ original_url: req.body.url, short_url: a })
         }
+        else {
+            let k = Object.keys(urlObj).find(key => urlObj[key] === req.body.url)
+            res.send({ original_url: req.body.url, short_url: k })
+        }
     }
     else {
-        res.send({error:'invalid url'})
+        res.json({ error: 'invalid url' })
     }
     
 })
 app.get("/api/shorturl/:id", (req, res) => {
     let url = urlObj[req.params.id];
-    return res.redirect(url);
+    if (url === undefined)
+        res.json({ error: 'invalid url' })
+    else 
+        return res.redirect(url);
 })
 
 app.listen(port, function() {
