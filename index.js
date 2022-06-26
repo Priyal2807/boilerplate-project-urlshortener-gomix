@@ -33,15 +33,15 @@ app.post("/api/shorturl", (req, res) => {
             urlObj[key] = req.body.url;
             let a = key;
             key++;
-            res.send({ original_url: req.body.url, short_url: a })
+           return res.send({ original_url: req.body.url, short_url: a })
         }
         else {
             let k = Object.keys(urlObj).find(key => urlObj[key] === req.body.url)
-            res.send({ original_url: req.body.url, short_url: k })
+            return res.send({ original_url: req.body.url, short_url: k })
         }
     }
     else {
-        res.json({ error: 'invalid url' })
+        return res.json({ error: 'invalid url' })
     }
     
 })
