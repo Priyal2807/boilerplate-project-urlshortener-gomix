@@ -21,12 +21,14 @@ app.get('/api/hello', function (req, res) {
     res.json({ greeting: 'hello API' });
 });
 app.post("/api/shorturl", (req, res) => {
-    const { hostname } = new URL(req.body.url);
+/*    const { hostname } = new URL(req.body.url);
     //console.log(hostname);
 
    let result = dns.lookup(hostname, (err, add, fam) => {
-   })
-    if (Object.values(result).length !== 0) {
+   })*/
+    let reg = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|^www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+
+    if (reg.test(req.body.url)){
         if (!Object.values(urlObj).includes(req.body.url)) {
             urlObj[key] = req.body.url;
             let a = key;
