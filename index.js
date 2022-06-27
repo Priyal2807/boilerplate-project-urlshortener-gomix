@@ -31,15 +31,16 @@ app.post("/api/shorturl", (req, res) => {
     let result = dns.lookup(url.hostname, (e, family) => {
         //console.log(result.hostname);
     })
+    if (result.hostname==undefined || !reg.test(url)) {
+        return res.send({ error: 'invalid url' });
+    }
     if (result.hostname !== undefined) {
         key++;
         urlObj[key] = url;
         return res.send({ original_url: url, short_url: key });
     }
 
-        if (!reg.test(url)) {
-            return res.send({ error: 'invalid url' });
-        }
+   
     
     
 
