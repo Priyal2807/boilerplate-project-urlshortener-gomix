@@ -27,13 +27,14 @@ app.post("/api/shorturl", (req, res) => {
 
     let reg = /(https?:\/\/)/
     let url = new URL(req.body.url);
+    if (!reg.test(url)) {
+        return res.send({ error: 'invalid url' });
+    }
    
     let result = dns.lookup(url.hostname, (e, family) => {
         //console.log(result.hostname);
     })
-    if (result.hostname==undefined || !reg.test(url)) {
-        return res.send({ error: 'invalid url' });
-    }
+  
     if (result.hostname !== undefined) {
         key++;
         urlObj[key] = url;
