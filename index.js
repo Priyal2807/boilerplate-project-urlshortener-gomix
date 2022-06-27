@@ -25,7 +25,7 @@ app.get('/api/hello', function (req, res) {
 });
 app.post("/api/shorturl", (req, res) => {
 
-    let reg = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|^www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+    let reg = /(https?:\/\/)/
     let url = new URL(req.body.url);
    
     let result = dns.lookup(url.hostname, (e, family) => {
